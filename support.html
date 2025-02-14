@@ -63,11 +63,76 @@
         <h1>Contact & Support</h1>
         <div class="contact-info">
             <h2>Get in Touch</h2>
-            <p>Email: <a href="mailto:support@projectwarrantpv.com">support@projectwarrantpv.com</a></p>
-            <p>CashApp: $ProjectWarrantPV</p>
-            <p>Phone: +1 (123) 456-7890</p>
+            <p>Email: <a href="mailto:projectwarrant@outlook.com">projectwarrant@outlook.com</a></p>
+            <p>Phone: +1 (205) 363-whatever my last 4 digits are i forgot</p>
             <p>Telegram: <a href="https://t.me/ProjectWarrantPV" target="_blank">@ProjectWarrantPV</a></p>
         </div>
     </div>
+
+    <script>
+        const canvas = document.getElementById('galaxy');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        
+        class Particle {
+            constructor(x, y, size, speedX, speedY) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.speedX = speedX;
+                this.speedY = speedY;
+            }
+            draw() {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+        }
+        
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                let size = Math.random() * 3;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let speedX = (Math.random() - 0.5) * 2;
+                let speedY = (Math.random() - 0.5) * 2;
+                particles.push(new Particle(x, y, size, speedX, speedY));
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        createParticles();
+        animate();
+        
+        window.addEventListener('mousemove', (e) => {
+            particles.forEach(particle => {
+                let dx = e.x - particle.x;
+                let dy = e.y - particle.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    particle.x += dx * 0.02;
+                    particle.y += dy * 0.02;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
