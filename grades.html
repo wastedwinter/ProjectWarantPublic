@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxies - Project Warrant PV</title>
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 50px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .proxy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .proxy-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease-in-out;
+        }
+        .proxy-card:hover {
+            transform: scale(1.05);
+        }
+        .proxy-card a {
+            color: cyan;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+        .proxy-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Proxies</h1>
+        <div class="proxy-grid">
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 1</a></div>
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 2</a></div>
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 3</a></div>
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 4</a></div>
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 5</a></div>
+            <div class='proxy-card'><a href='https://dogeproxy-three.vercel.app/' target='_blank'>Placeholder Site 6</a></div>
+        </div>
+    </div>
+</body>
+</html>
