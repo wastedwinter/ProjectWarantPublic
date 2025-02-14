@@ -25,7 +25,6 @@
 			z-index: -1;
 		}
 
-		/* Navigation Bar Styling */
 		.nav-bar {
 			background: rgba(255, 255, 255, 0.1);
 			backdrop-filter: blur(10px);
@@ -63,7 +62,6 @@
 			flex-grow: 2;
 		}
 
-		/* Search Bar Styling */
 		.search-container {
 			margin-top: 150px;
 			text-align: center;
@@ -92,86 +90,50 @@
 <body>
 	<canvas id="galaxy"></canvas>
 
-	<!-- Navigation Bar with Links -->
 	<div class="nav-bar">
 		<a href="index.html">Project Warrant</a>
-    <a href="assignments.html">Games</a>
+		<a href="assignments.html">Games</a>
 		<a href="grades.html">Proxies</a>
 		<a href="support.html">Support</a>
 	</div>
 
-	<!-- Search Bar -->
 	<div class="search-container">
 		<input type="text" placeholder="Search or enter URL..." id="search-bar">
 	</div>
 
 	<script>
-		const canvas = document.getElementById('galaxy');
-		const ctx = canvas.getContext('2d');
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		(async () => {
+			const UV_BASE = "https://ultraviolet-warrant-voy1.vercel.app/"; // Replace with your actual UV deployment URL
 
-		let particles = [];
+			const script = document.createElement("script");
+			script.src = `${UV_BASE}/uv/uv.bundle.js`;
+			document.head.appendChild(script);
+			await new Promise(resolve => script.onload = resolve);
 
-		class Particle {
-			constructor(x, y, size, speedX, speedY) {
-				this.x = x;
-				this.y = y;
-				this.size = size;
-				this.speedX = speedX;
-				this.speedY = speedY;
+			const uvConfigScript = document.createElement("script");
+			uvConfigScript.src = `${UV_BASE}/uv/uv.config.js`;
+			document.head.appendChild(uvConfigScript);
+			await new Promise(resolve => uvConfigScript.onload = resolve);
+
+			if (typeof Ultraviolet === "undefined") return;
+			const uv = new Ultraviolet();
+
+			function encodeURL(url) {
+				return `${UV_BASE}/uv/service/${uv.codec.xor.encode(url)}`;
 			}
 
-			draw() {
-				ctx.fillStyle = 'white';
-				ctx.beginPath();
-				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-				ctx.fill();
-			}
-
-			update() {
-				this.x += this.speedX;
-				this.y += this.speedY;
-				if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-				if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-			}
-		}
-
-		function createParticles() {
-			particles = [];
-			for (let i = 0; i < 100; i++) {
-				let size = Math.random() * 3;
-				let x = Math.random() * canvas.width;
-				let y = Math.random() * canvas.height;
-				let speedX = (Math.random() - 0.5) * 2;
-				let speedY = (Math.random() - 0.5) * 2;
-				particles.push(new Particle(x, y, size, speedX, speedY));
-			}
-		}
-
-		function animate() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			particles.forEach(particle => {
-				particle.update();
-				particle.draw();
-			});
-			requestAnimationFrame(animate);
-		}
-
-		createParticles();
-		animate();
-
-		window.addEventListener('mousemove', (e) => {
-			particles.forEach(particle => {
-				let dx = e.x - particle.x;
-				let dy = e.y - particle.y;
-				let distance = Math.sqrt(dx * dx + dy * dy);
-				if (distance < 100) {
-					particle.x += dx * 0.02;
-					particle.y += dy * 0.02;
+			document.getElementById("search-bar").addEventListener("keypress", function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					const query = this.value.trim();
+					if (query) {
+						const isURL = query.includes(".") || query.startsWith("http");
+						const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+						window.location.href = encodeURL(targetURL);
+					}
 				}
 			});
-		});
+		})();
 	</script>
 </body>
 
