@@ -103,7 +103,7 @@
 
 	<script>
 		(async () => {
-			const UV_BASE = "http://www.example.com/index.html"; // Replace with your actual UV deployment URL
+			const UV_BASE = window.location.origin; // Replace with your actual UV deployment URL
 
 			const script = document.createElement("script");
 			script.src = `${UV_BASE}/uv/uv.bundle.js`;
