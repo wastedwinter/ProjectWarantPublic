@@ -2,206 +2,83 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>W-PV-26</title>
-	<style>
-		body {
-			margin: 0;
-			overflow-x: hidden;
-			background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
-			background-attachment: fixed;
-			color: white;
-			font-family: Arial, sans-serif;
-			text-align: center;
-		}
-
-		canvas {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: -1;
-		}
-
-		.nav-bar {
-			background: rgba(255, 255, 255, 0.1);
-			backdrop-filter: blur(10px);
-			display: flex;
-			align-items: center;
-			gap: 20px;
-			padding: 15px;
-			position: fixed;
-			width: 100%;
-			top: 0;
-			left: 0;
-			z-index: 1000;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-		}
-
-		.nav-bar a {
-			color: white;
-			text-decoration: none;
-			font-size: 1.2rem;
-			padding: 10px 15px;
-			transition: 0.3s;
-			text-align: center;
-			flex-grow: 1;
-		}
-
-		.nav-bar a:hover {
-			background: rgba(255, 255, 255, 0.2);
-			border-radius: 5px;
-		}
-
-		.nav-bar a:first-child {
-			font-size: 2rem;
-			font-weight: bold;
-			text-align: left;
-			flex-grow: 2;
-		}
-
-		.search-container {
-			margin-top: 150px;
-			text-align: center;
-		}
-
-		#search-bar {
-			width: 50%;
-			padding: 12px;
-			font-size: 1.2rem;
-			border: none;
-			border-radius: 25px;
-			outline: none;
-			background: rgba(255, 255, 255, 0.1);
-			color: white;
-			text-align: center;
-			box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-			transition: 0.3s;
-		}
-
-		#search-bar:focus {
-			background: rgba(255, 255, 255, 0.2);
-		}
-
-		#proxy-container {
-			width: 90%;
-			height: 80vh;
-			overflow: auto;
-			margin-top: 100px;
-			margin-left: auto;
-			margin-right: auto;
-			border: 2px solid rgba(255, 255, 255, 0.2);
-			border-radius: 10px;
-			padding: 15px;
-			background-color: #1a1a2e;
-			display: none; /* Initially hide the proxied content container */
-		}
-
-		#proxy-container iframe {
-			width: 100%;
-			height: 100%;
-			border: none;
-			border-radius: 8px;
-		}
-
-		#fullscreen-btn {
-			background-color: #333;
-			color: white;
-			padding: 10px 15px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 10px;
-			display: none; /* Hide fullscreen button initially */
-		}
-
-		#fullscreen-btn:hover {
-			background-color: #444;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W-PV-26</title>
+    <style>
+        body { 			margin: 0; 			overflow-x: hidden; 			background: linear-gradient(to bottom, #0a0a0a, #1a1a2e); 			background-attachment: fixed; 			color: white; 			font-family: Arial, sans-serif; 			text-align: center; 		}  		canvas { 			position: fixed; 			top: 0; 			left: 0; 			width: 100%; 			height: 100%; 			z-index: -1; 		}  		.nav-bar { 			background: rgba(255, 255, 255, 0.1); 			backdrop-filter: blur(10px); 			display: flex; 			align-items: center; 			gap: 20px; 			padding: 15px; 			position: fixed; 			width: 100%; 			top: 0; 			left: 0; 			z-index: 1000; 			border-bottom: 1px solid rgba(255, 255, 255, 0.2); 		}  		.nav-bar a { 			color: white; 			text-decoration: none; 			font-size: 1.2rem; 			padding: 10px 15px; 			transition: 0.3s; 			text-align: center; 			flex-grow: 1; 		}  		.nav-bar a:hover { 			background: rgba(255, 255, 255, 0.2); 			border-radius: 5px; 		}  		.nav-bar a:first-child { 			font-size: 2rem; 			font-weight: bold; 			text-align: left; 			flex-grow: 2; 		}  		.search-container { 			margin-top: 150px; 			text-align: center; 		}  		#search-bar { 			width: 50%; 			padding: 12px; 			font-size: 1.2rem; 			border: none; 			border-radius: 25px; 			outline: none; 			background: rgba(255, 255, 255, 0.1); 			color: white; 			text-align: center; 			box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 			transition: 0.3s; 		}  		#search-bar:focus { 			background: rgba(255, 255, 255, 0.2); 		}  		#proxy-container { 			width: 90%; 			height: 80vh; 			overflow: auto; 			margin-top: 100px; 			margin-left: auto; 			margin-right: auto; 			border: 2px solid rgba(255, 255, 255, 0.2); 			border-radius: 10px; 			padding: 15px; 			background-color: #1a1a2e; 			display: none; /* Initially hide the proxied content container */ 		}  		#proxy-container iframe { 			width: 100%; 			height: 100%; 			border: none; 			border-radius: 8px; 		}  		#fullscreen-btn { 			background-color: #333; 			color: white; 			padding: 10px 15px; 			border: none; 			border-radius: 5px; 			cursor: pointer; 			margin-top: 10px; 			display: none; /* Hide fullscreen button initially */ 		}  		#fullscreen-btn:hover { 			background-color: #444; 		}
+    </style>
 </head>
 
 <body>
-	<canvas id="galaxy"></canvas>
+    <canvas id="galaxy"></canvas>
 
-	<div class="nav-bar">
-		<a href="index.html">Project Warrant</a>
-		<a href="assignments.html">Games</a>
-		<a href="grades.html">Proxies</a>
-		<a href="support.html">Support</a>
-	</div>
+    <div class="nav-bar">
+        <a href="index.html">Project Warrant</a>
+        <a href="assignments.html">Games</a>
+        <a href="grades.html">Proxies</a>
+        <a href="support.html">Support</a>
+    </div>
 
-	<div class="search-container">
-		<input type="text" placeholder="Search or enter URL..." id="search-bar">
-	</div>
+    <div class="search-container">
+        <input type="text" placeholder="Search or enter URL..." id="search-bar">
+    </div>
 
-	<div id="proxy-container">
-		<iframe id="proxy-iframe" src="" frameborder="0"></iframe>
-	</div>
+    <div id="proxy-container">
+        <iframe id="proxy-iframe" src="" frameborder="0"></iframe>
+    </div>
 
-	<button id="fullscreen-btn">Go Fullscreen</button>
+    <button id="fullscreen-btn">Go Fullscreen</button>
 
-	<script>
-		// Backend Proxy URL (replace with your actual server URL)
-		const PROXY_URL = "https://ultraviolet-five-puce.vercel.app/"; // Replace this URL with your actual server URL
-		let iframe = document.getElementById("proxy-iframe");
-		let proxyContainer = document.getElementById("proxy-container");
-		let fullscreenBtn = document.getElementById("fullscreen-btn");
+    <script>
+        // Ultraviolet Proxy URL
+        const PROXY_URL = "https://ultraviolet-five-puce.vercel.app/"; // Your Ultraviolet proxy URL
 
-		// Function to toggle fullscreen mode
-		fullscreenBtn.addEventListener("click", function() {
-			if (proxyContainer.requestFullscreen) {
-				proxyContainer.requestFullscreen();
-			} else if (proxyContainer.mozRequestFullScreen) { // Firefox
-				proxyContainer.mozRequestFullScreen();
-			} else if (proxyContainer.webkitRequestFullscreen) { // Chrome, Safari
-				proxyContainer.webkitRequestFullscreen();
-			} else if (proxyContainer.msRequestFullscreen) { // IE/Edge
-				proxyContainer.msRequestFullscreen();
-			}
-		});
+        let iframe = document.getElementById("proxy-iframe");
+        let proxyContainer = document.getElementById("proxy-container");
+        let fullscreenBtn = document.getElementById("fullscreen-btn");
 
-		document.getElementById("search-bar").addEventListener("keypress", function(event) {
-			if (event.key === "Enter") {
-				event.preventDefault();
-				const query = this.value.trim();
-				if (query) {
-					// Ensure the query is a URL or transform it into a Google search
-					const isURL = query.includes(".") || query.startsWith("http");
-					const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+        fullscreenBtn.addEventListener("click", function () {
+            if (proxyContainer.requestFullscreen) {
+                proxyContainer.requestFullscreen();
+            } else if (proxyContainer.mozRequestFullScreen) { // Firefox
+                proxyContainer.mozRequestFullScreen();
+            } else if (proxyContainer.webkitRequestFullscreen) { // Chrome, Safari
+                proxyContainer.webkitRequestFullscreen();
+            } else if (proxyContainer.msRequestFullscreen) { // IE/Edge
+                proxyContainer.msRequestFullscreen();
+            }
+        });
 
-					// URL encode the target URL before passing it to the proxy
-					const encodedUrl = encodeURIComponent(targetURL);
+        document.getElementById("search-bar").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const query = this.value.trim();
+                if (query) {
+                    const isURL = query.includes(".") || query.startsWith("http");
+                    const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
-					// Show the proxy container and hide the search bar
-					proxyContainer.style.display = "block";
-					fullscreenBtn.style.display = "inline-block";  // Show fullscreen button
+                    const encodedUrl = encodeURIComponent(targetURL);
 
-					// Clear the previous content
-					iframe.src = "";
+                    // Show the proxy container and fullscreen button
+                    proxyContainer.style.display = "block";
+                    fullscreenBtn.style.display = "inline-block";  
 
-					// Fetch and load content directly into the iframe
-					fetch(`${PROXY_URL}?url=${encodedUrl}`)
-						.then(response => {
-							if (!response.ok) {
-								throw new Error("Failed to load proxied content");
-							}
-							return response.text();
-						})
-						.then(content => {
-							// Inject the proxied content into the iframe
-							iframe.srcdoc = content;
-						})
-						.catch(error => {
-							console.error("Error loading proxied content:", error);
-							proxyContainer.innerHTML = "Error loading content. Please try again.";
-						});
-				}
-			}
-		});
-	</script>
+                    iframe.src = "";  // Clear previous content
+
+                    fetch(`${PROXY_URL}?url=${encodedUrl}`)
+                        .then(response => response.text())
+                        .then(content => {
+                            iframe.srcdoc = content;
+                        })
+                        .catch(error => {
+                            console.error("Error loading proxied content:", error);
+                            proxyContainer.innerHTML = "Error loading content. Please try again.";
+                        });
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
