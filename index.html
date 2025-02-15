@@ -44,61 +44,61 @@
   <script>
     // Vercel Proxy URL
     const PROXY_URL = "https://proxy-please-work.vercel.app/proxy"; // Your Vercel proxy URL
-    let iframe = document.getElementById("proxy-iframe");
-    let proxyContainer = document.getElementById("proxy-container");
-    let fullscreenBtn = document.getElementById("fullscreen-btn");
+let iframe = document.getElementById("proxy-iframe");
+let proxyContainer = document.getElementById("proxy-container");
+let fullscreenBtn = document.getElementById("fullscreen-btn");
 
-    // Function to toggle fullscreen mode
-    fullscreenBtn.addEventListener("click", function() {
-      if (proxyContainer.requestFullscreen) {
-        proxyContainer.requestFullscreen();
-      } else if (proxyContainer.mozRequestFullScreen) { // Firefox
-        proxyContainer.mozRequestFullScreen();
-      } else if (proxyContainer.webkitRequestFullscreen) { // Chrome, Safari
-        proxyContainer.webkitRequestFullscreen();
-      } else if (proxyContainer.msRequestFullscreen) { // IE/Edge
-        proxyContainer.msRequestFullscreen();
-      }
-    });
+// Function to toggle fullscreen mode
+fullscreenBtn.addEventListener("click", function() {
+  if (proxyContainer.requestFullscreen) {
+    proxyContainer.requestFullscreen();
+  } else if (proxyContainer.mozRequestFullScreen) { // Firefox
+    proxyContainer.mozRequestFullScreen();
+  } else if (proxyContainer.webkitRequestFullscreen) { // Chrome, Safari
+    proxyContainer.webkitRequestFullscreen();
+  } else if (proxyContainer.msRequestFullscreen) { // IE/Edge
+    proxyContainer.msRequestFullscreen();
+  }
+});
 
-    document.getElementById("search-bar").addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        const query = this.value.trim();
-        if (query) {
-          // Ensure the query is a URL or transform it into a Google search
-          const isURL = query.includes(".") || query.startsWith("http");
-          const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+document.getElementById("search-bar").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const query = this.value.trim();
+    if (query) {
+      // Ensure the query is a URL or transform it into a Google search
+      const isURL = query.includes(".") || query.startsWith("http");
+      const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
-          // URL encode the target URL before passing it to the proxy
-          const encodedUrl = encodeURIComponent(targetURL);
+      // URL encode the target URL before passing it to the proxy
+      const encodedUrl = encodeURIComponent(targetURL);
 
-          // Show the proxy container and hide the search bar
-          proxyContainer.style.display = "block";
-          fullscreenBtn.style.display = "inline-block";  // Show fullscreen button
+      // Show the proxy container and hide the search bar
+      proxyContainer.style.display = "block";
+      fullscreenBtn.style.display = "inline-block";  // Show fullscreen button
 
-          // Clear the previous content
-          iframe.src = "";
+      // Clear the previous content
+      iframe.src = "";
 
-          // Fetch and load content directly into the iframe
-          fetch(`${PROXY_URL}?url=${encodedUrl}`)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error("Failed to load proxied content");
-              }
-              return response.text();
-            })
-            .then(content => {
-              // Inject the proxied content into the iframe
-              iframe.srcdoc = content;
-            })
-            .catch(error => {
-              console.error("Error loading proxied content:", error);
-              proxyContainer.innerHTML = "Error loading content. Please try again.";
-            });
-        }
-      }
-    });
+      // Fetch and load content directly into the iframe
+      fetch(`${PROXY_URL}?url=${encodedUrl}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to load proxied content");
+          }
+          return response.text();
+        })
+        .then(content => {
+          // Inject the proxied content into the iframe
+          iframe.srcdoc = content;
+        })
+        .catch(error => {
+          console.error("Error loading proxied content:", error);
+          proxyContainer.innerHTML = "Error loading content. Please try again.";
+        });
+    }
+  }
+});
   </script>
 </body>
 </html>
