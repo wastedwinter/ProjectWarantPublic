@@ -86,10 +86,14 @@
 		}
 
 		#proxy-content {
-			width: 100%;
+			width: 90%;
 			height: 80vh;
 			overflow: auto;
 			margin-top: 100px; /* Adjust to avoid navbar overlap */
+			margin-left: auto;
+			margin-right: auto;
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			border-radius: 10px;
 		}
 
 		iframe {
@@ -123,24 +127,25 @@
 		const PROXY_URL = "https://proxy-please-work.vercel.app/proxy"; // Your actual Vercel URL
 
 		document.getElementById("search-bar").addEventListener("keypress", function(event) {
-			if (event.key === "Enter") {
-				event.preventDefault();
-				const query = this.value.trim();
-				if (query) {
-					const isURL = query.includes(".") || query.startsWith("http");
-					const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+	if (event.key === "Enter") {
+		event.preventDefault();
+		const query = this.value.trim();
+		if (query) {
+			// Ensure the query is a URL or transform it into a Google search
+			const isURL = query.includes(".") || query.startsWith("http");
+			const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
-					// XOR encode the URL like UV does (here we use Base64 encoding for simplicity)
-					const encodedUrl = btoa(targetURL); // Base64 encoding as a placeholder
+			// URL encode the target URL before passing it to the proxy
+			const encodedUrl = encodeURIComponent(targetURL);
 
-					// Dynamically load the proxied content inside the #proxy-content div
-					const iframe = document.createElement("iframe");
-					iframe.src = `${PROXY_URL}?url=${encodeURIComponent(encodedUrl)}`;
-					document.getElementById("proxy-content").innerHTML = ''; // Clear previous content
-					document.getElementById("proxy-content").appendChild(iframe);
-				}
-			}
-		});
+			// Dynamically load the proxied content inside the #proxy-content div
+			const iframe = document.createElement("iframe");
+			iframe.src = `${PROXY_URL}?url=${encodedUrl}`;
+			document.getElementById("proxy-content").innerHTML = ''; // Clear previous content
+			document.getElementById("proxy-content").appendChild(iframe);
+		}
+	}
+});
 	</script>
 </body>
 
