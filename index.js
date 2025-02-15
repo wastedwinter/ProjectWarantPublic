@@ -15,9 +15,9 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "static")));
+app.use(express.static(path.join(__dirname, "static","main")));
 app.get('/app', (req, res) => {
-  res.sendFile(path.join(process.cwd(), './static/index.html'));
+  res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 app.get('/student', (req, res) => {
   res.sendFile(path.join(process.cwd(), './static/grades.html'));
