@@ -84,6 +84,19 @@
 		#search-bar:focus {
 			background: rgba(255, 255, 255, 0.2);
 		}
+
+		#proxy-content {
+			width: 100%;
+			height: 80vh;
+			overflow: auto;
+			margin-top: 100px; /* Adjust to avoid navbar overlap */
+		}
+
+		iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
 	</style>
 </head>
 
@@ -101,8 +114,12 @@
 		<input type="text" placeholder="Search or enter URL..." id="search-bar">
 	</div>
 
-		<script>
-			// Vercel Proxy URL
+	<div id="proxy-content">
+		<!-- The proxied content will be loaded here inside an iframe -->
+	</div>
+
+	<script>
+		// Vercel Proxy URL
 		const PROXY_URL = "https://proxy-please-work.vercel.app/proxy"; // Your actual Vercel URL
 
 		document.getElementById("search-bar").addEventListener("keypress", function(event) {
@@ -116,12 +133,15 @@
 					// XOR encode the URL like UV does (here we use Base64 encoding for simplicity)
 					const encodedUrl = btoa(targetURL); // Base64 encoding as a placeholder
 
-					// Redirect to the proxy with the encoded URL
-					window.location.href = `${PROXY_URL}?url=${encodeURIComponent(encodedUrl)}`;
+					// Dynamically load the proxied content inside the #proxy-content div
+					const iframe = document.createElement("iframe");
+					iframe.src = `${PROXY_URL}?url=${encodeURIComponent(encodedUrl)}`;
+					document.getElementById("proxy-content").innerHTML = ''; // Clear previous content
+					document.getElementById("proxy-content").appendChild(iframe);
 				}
 			}
 		});
-		</script>
+	</script>
 </body>
 
 </html>
