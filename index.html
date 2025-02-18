@@ -7,144 +7,146 @@
     <title>W-PV-26</title>
     <style>
         body {
-    margin: 0;
-    overflow-x: hidden;
-    background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
-    background-attachment: fixed;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
+            margin: 0;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-.nav-bar {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 15px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-.nav-bar a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 10px 15px;
-    transition: 0.3s;
-    text-align: center;
-    flex-grow: 1;
-}
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            transition: 0.3s;
+            text-align: center;
+            flex-grow: 1;
+        }
 
-.nav-bar a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-}
+        .nav-bar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
 
-.nav-bar a:first-child {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: left;
-    flex-grow: 2;
-}
+        .nav-bar a:first-child {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: left;
+            flex-grow: 2;
+        }
 
-.nav-bar button {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 1.2rem;
-    margin-left: auto; /* Push to the right */
-}
+        .nav-bar button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+            margin-left: auto;
+        }
 
-.nav-bar button:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
+        .nav-bar button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
 
+        /* Search Bar Styles */
+        .search-container {
+            margin-top: 150px;
+            text-align: center;
+            position: relative;
+        }
 
-.search-container {
-    margin-top: 150px;
-    text-align: center;
-}
+        #search-bar {
+            width: 50%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: 0.3s;
+        }
 
-#search-bar {
-    width: 50%;
-    padding: 12px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 25px;
-    outline: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    transition: 0.3s;
-}
+        #search-bar:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-#search-bar:focus {
-    background: rgba(255, 255, 255, 0.2);
-}
+        #search-results {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-height: 200px;
+            overflow-y: auto;
+            width: 50%;
+            margin: 10px auto;
+            position: absolute;
+            top: 80px;
+            z-index: 1001;
+            border-radius: 10px;
+        }
 
-#proxy-container {
-    width: 90%;
-    height: 80vh;
-    overflow: auto;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 15px;
-    background-color: #1a1a2e;
-    display: none; /* Initially hide the proxied content container */
-}
+        #search-results li {
+            padding: 8px;
+            text-align: center;
+        }
 
-#proxy-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-}
+        #search-results li button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
 
-#fullscreen-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    display: none; /* Hide fullscreen button initially */
-}
-
-#fullscreen-btn:hover {
-    background-color: #444;
-}
-
+        #search-results li button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     </style>
-<script src="index.js"></script>
+    <script src="index.js"></script>
 </head>
-<script>function openInBlank() {
-    const newTab = window.open("about:blank", "_blank"); // Open a blank tab
+<script>
+    function openInBlank() {
+        const newTab = window.open("about:blank", "_blank");
 
-    newTab.document.write(`
+        newTab.document.write(`
         <html>
             <head>
                 <title>about:blank</title>
@@ -178,11 +180,44 @@ canvas {
             </body>
         </html>
     `);
-    
-    newTab.document.close(); // Close document stream to prevent blocking
-}
 
+        newTab.document.close();
+    }
+
+    // Search Bar and Dropdown Functionality
+    const pages = [
+        { name: "Home Page", url: "/index.html" },
+        { name: "Games", url: "/static/games.html" },
+        { name: "Proxies", url: "/static/proxies.html" },
+        { name: "Support", url: "/static/support.html" },
+    ];
+
+    const searchBar = document.getElementById('search-bar');
+    const searchResults = document.getElementById('search-results');
+
+    searchBar.addEventListener('input', function () {
+        const query = searchBar.value.toLowerCase();
+        searchResults.innerHTML = '';
+
+        if (query) {
+            const filteredPages = pages.filter(page => page.name.toLowerCase().includes(query));
+
+            filteredPages.forEach(page => {
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+                button.textContent = page.name;
+                button.onclick = () => window.location.href = page.url;
+                li.appendChild(button);
+                searchResults.appendChild(li);
+            });
+
+            searchResults.style.display = filteredPages.length ? 'block' : 'none';
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
 </script>
+
 <body>
     <canvas id="galaxy"></canvas>
 
@@ -192,137 +227,85 @@ canvas {
         <a href="/static/proxies.html">Proxies</a>
         <a href="/static/support.html">Support</a>
         <button id="openBlanker">Open Site</button>
-<script>document.getElementById("openBlanker").addEventListener("click", openInBlank);
-</script>
+        <script>
+            document.getElementById("openBlanker").addEventListener("click", openInBlank);
+        </script>
     </div>
 
+    <!-- Search Bar and Results -->
     <div class="search-container">
-        <input type="text" placeholder="Search or enter URL..." id="search-bar">
+        <input type="text" id="search-bar" placeholder="Search for pages...">
+        <ul id="search-results" style="display: none;"></ul>
     </div>
-
-    <div id="proxy-container">
-        <iframe id="proxy-iframe" src="" frameborder="0"></iframe>
-    </div>
-
-    <button id="fullscreen-btn">Go Fullscreen</button>
 
     <script>
-        // Ultraviolet Proxy URL
-        const PROXY_URL = "https://ultraviolet-five-puce.vercel.app/"; // Your Ultraviolet proxy URL
+        const canvas = document.getElementById('galaxy');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        let iframe = document.getElementById("proxy-iframe");
-        let proxyContainer = document.getElementById("proxy-container");
-        let fullscreenBtn = document.getElementById("fullscreen-btn");
+        let particles = [];
 
-        fullscreenBtn.addEventListener("click", function () {
-            if (proxyContainer.requestFullscreen) {
-                proxyContainer.requestFullscreen();
-            } else if (proxyContainer.mozRequestFullScreen) { // Firefox
-                proxyContainer.mozRequestFullScreen();
-            } else if (proxyContainer.webkitRequestFullscreen) { // Chrome, Safari
-                proxyContainer.webkitRequestFullscreen();
-            } else if (proxyContainer.msRequestFullscreen) { // IE/Edge
-                proxyContainer.msRequestFullscreen();
+        class Particle {
+            constructor(x, y, size, speedX, speedY) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.speedX = speedX;
+                this.speedY = speedY;
             }
-        });
 
-        document.getElementById("search-bar").addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                const query = this.value.trim();
-                if (query) {
-                    const isURL = query.includes(".") || query.startsWith("http");
-                    const targetURL = isURL ? query : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            draw() {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
 
-                    const encodedUrl = encodeURIComponent(targetURL);
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+        }
 
-                    // Show the proxy container and fullscreen button
-                    proxyContainer.style.display = "block";
-                    fullscreenBtn.style.display = "inline-block";  
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                let size = Math.random() * 3;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let speedX = (Math.random() - 0.5) * 2;
+                let speedY = (Math.random() - 0.5) * 2;
+                particles.push(new Particle(x, y, size, speedX, speedY));
+            }
+        }
 
-                    iframe.src = "";  // Clear previous content
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
 
-                    fetch(`${PROXY_URL}?url=${encodedUrl}`)
-                        .then(response => response.text())
-                        .then(content => {
-                            iframe.srcdoc = content;
-                        })
-                        .catch(error => {
-                            console.error("Error loading proxied content:", error);
-                            proxyContainer.innerHTML = "Error loading content. Please try again.";
-                        });
+        createParticles();
+        animate();
+
+        window.addEventListener('mousemove', (e) => {
+            particles.forEach(particle => {
+                let dx = e.x - particle.x;
+                let dy = e.y - particle.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    particle.x += dx * 0.02;
+                    particle.y += dy * 0.02;
                 }
-            }
+            });
         });
     </script>
-<script>
-    const canvas = document.getElementById('galaxy');
-		const ctx = canvas.getContext('2d');
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
-
-		let particles = [];
-
-		class Particle {
-			constructor(x, y, size, speedX, speedY) {
-				this.x = x;
-				this.y = y;
-				this.size = size;
-				this.speedX = speedX;
-				this.speedY = speedY;
-			}
-
-			draw() {
-				ctx.fillStyle = 'white';
-				ctx.beginPath();
-				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-				ctx.fill();
-			}
-
-			update() {
-				this.x += this.speedX;
-				this.y += this.speedY;
-				if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-				if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-			}
-		}
-
-		function createParticles() {
-			particles = [];
-			for (let i = 0; i < 100; i++) {
-				let size = Math.random() * 3;
-				let x = Math.random() * canvas.width;
-				let y = Math.random() * canvas.height;
-				let speedX = (Math.random() - 0.5) * 2;
-				let speedY = (Math.random() - 0.5) * 2;
-				particles.push(new Particle(x, y, size, speedX, speedY));
-			}
-		}
-
-		function animate() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			particles.forEach(particle => {
-				particle.update();
-				particle.draw();
-			});
-			requestAnimationFrame(animate);
-		}
-
-		createParticles();
-		animate();
-
-		window.addEventListener('mousemove', (e) => {
-			particles.forEach(particle => {
-				let dx = e.x - particle.x;
-				let dy = e.y - particle.y;
-				let distance = Math.sqrt(dx * dx + dy * dy);
-				if (distance < 100) {
-					particle.x += dx * 0.02;
-					particle.y += dy * 0.02;
-				}
-			});
-		});
-</script>
 </body>
 
 </html>
