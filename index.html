@@ -62,7 +62,6 @@ canvas {
     flex-grow: 2;
 }
 
-/* New Button Styling */
 .nav-bar button {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
@@ -72,11 +71,13 @@ canvas {
     cursor: pointer;
     transition: 0.3s;
     font-size: 1.2rem;
+    margin-left: auto; /* Push to the right */
 }
 
 .nav-bar button:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+
 
 .search-container {
     margin-top: 150px;
@@ -141,14 +142,35 @@ canvas {
 <script src="index.js"></script>
 </head>
 <script>function openInBlank() {
-    const newTab = window.open("about:blank", "_blank");
+    const newTab = window.open("about:blank", "_blank"); // Open a blank tab
+
     newTab.document.write(`
         <html>
             <head>
                 <title>Loading...</title>
                 <style>
-                    body, html { margin: 0; padding: 0; overflow: hidden; }
-                    iframe { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; border: none; }
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        border: 0;
+                        overflow: hidden;
+                    }
+                    html, body {
+                        width: 100vw;
+                        height: 100vh;
+                        background: black;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    iframe {
+                        width: 100vw;
+                        height: 100vh;
+                        border: none;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
                 </style>
             </head>
             <body>
@@ -156,7 +178,10 @@ canvas {
             </body>
         </html>
     `);
+    
+    newTab.document.close(); // Close document stream to prevent blocking
 }
+
 </script>
 <body>
     <canvas id="galaxy"></canvas>
@@ -166,7 +191,9 @@ canvas {
         <a href="/static/games.html">Games</a>
         <a href="/static/proxies.html">Proxies</a>
         <a href="/static/support.html">Support</a>
-        <button id="openButton">Blanker</button>
+        <button id="openBlanker">Open Site</button>
+<script>document.getElementById("openBlanker").addEventListener("click", openInBlank);
+</script>
     </div>
 
     <div class="search-container">
