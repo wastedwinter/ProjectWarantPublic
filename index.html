@@ -139,6 +139,14 @@
         #search-results li button:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
+
+        /* Styling for "No results found" */
+        #no-results {
+            padding: 10px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
     </style>
     <script src="index.js"></script>
 </head>
@@ -197,23 +205,30 @@
 
     searchBar.addEventListener('input', function () {
         const query = searchBar.value.toLowerCase();
-        searchResults.innerHTML = '';
+        searchResults.innerHTML = ''; // Clear previous results
 
         if (query) {
             const filteredPages = pages.filter(page => page.name.toLowerCase().includes(query));
 
-            filteredPages.forEach(page => {
-                const li = document.createElement('li');
-                const button = document.createElement('button');
-                button.textContent = page.name;
-                button.onclick = () => window.location.href = page.url;
-                li.appendChild(button);
-                searchResults.appendChild(li);
-            });
-
-            searchResults.style.display = filteredPages.length ? 'block' : 'none';
+            if (filteredPages.length > 0) {
+                filteredPages.forEach(page => {
+                    const li = document.createElement('li');
+                    const button = document.createElement('button');
+                    button.textContent = page.name;
+                    button.onclick = () => window.location.href = page.url;
+                    li.appendChild(button);
+                    searchResults.appendChild(li);
+                });
+                searchResults.style.display = 'block'; // Show results
+            } else {
+                const noResults = document.createElement('li');
+                noResults.id = 'no-results';
+                noResults.textContent = 'No results found';
+                searchResults.appendChild(noResults);
+                searchResults.style.display = 'block'; // Show no results message
+            }
         } else {
-            searchResults.style.display = 'none';
+            searchResults.style.display = 'none'; // Hide results if search is empty
         }
     });
 </script>
@@ -282,29 +297,17 @@
             }
         }
 
-        function animate() {
+        function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParticles);
         }
 
         createParticles();
-        animate();
-
-        window.addEventListener('mousemove', (e) => {
-            particles.forEach(particle => {
-                let dx = e.x - particle.x;
-                let dy = e.y - particle.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 100) {
-                    particle.x += dx * 0.02;
-                    particle.y += dy * 0.02;
-                }
-            });
-        });
+        animateParticles();
     </script>
 </body>
 
