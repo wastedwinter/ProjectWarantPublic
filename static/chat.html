@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Home Page Style */
+        .home-container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 50px;
+            border-radius: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin-top: 20%;
+        }
+
+        .home-container input, .home-container button {
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .home-container input {
+            width: 80%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+        }
+
+        .home-container input:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .home-container button {
+            background-color: rgba(0, 255, 255, 0.2);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .home-container button:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+        /* Chat Room Style */
+        #chat-container {
+            margin-top: 100px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #chat-messages {
+            max-height: 300px;
+            overflow-y: scroll;
+            padding-bottom: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .message strong {
+            color: cyan;
+        }
+
+        #message {
+            width: 80%;
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        #send-btn {
+            padding: 12px 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+            background-color: rgba(0, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        #send-btn:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+        #leave-btn {
+            padding: 12px 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+            background-color: rgba(255, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        #leave-btn:hover {
+            background-color: rgba(255, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="home-page" class="home-container">
+        <h1>Enter Chat Room Code</h1>
+        <input id="room-code" type="text" placeholder="Enter room code (pub, support)"/>
+        <button onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <!-- Chat Room -->
+    <div id="chat-page" style="display: none;">
+        <div id="chat-container">
+            <div id="chat-messages"></div>
+
+            <input type="text" id="username" placeholder="Enter your username" />
+            <textarea id="message" placeholder="Type your message..." rows="3"></textarea>
+            <button id="send-btn" onclick="sendMessage()">Send</button>
+            <button id="leave-btn" onclick="leaveRoom()">Leave Room</button>
+        </div>
+    </div>
+
+    <script>
+        // To store and retrieve chat history for each room
+        let messages = {};
+        let currentRoom = '';
+        
+        // Show the chat page
+        function showChatPage(roomCode) {
+            currentRoom = roomCode;
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('chat-page').style.display = 'block';
+            
+            // Load messages for the room
+            messages[currentRoom] = JSON.parse(localStorage.getItem(currentRoom)) || [];
+            loadMessages();
+        }
+
+        // Join a room
+        function joinRoom() {
+            const roomCode = document.getElementById('room-code').value.trim().toLowerCase();
+
+            // Check if the room code is valid
+            if (roomCode === 'pub' || roomCode === 'support' || roomCode === 'pv') {
+                showChatPage(roomCode);
+            } else {
+                alert('Invalid room code. Please enter "pub", "support", or "pv".');
+            }
+        }
+
+        // Load the chat messages into the container
+        function loadMessages() {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = '';
+            messages[currentRoom].forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.innerHTML = `<strong>${msg.username}</strong> [${msg.timestamp}]: ${msg.text}`;
+                messagesContainer.appendChild(messageElement);
+            });
+        }
+
+        // Send a new message
+        function sendMessage() {
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('message').value;
+
+            if (username && message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const newMessage = { username, text: message, timestamp };
+
+                // Add the new message to the chat messages array
+                messages[currentRoom].push(newMessage);
+
+                // Save the messages to localStorage
+                localStorage.setItem(currentRoom, JSON.stringify(messages[currentRoom]));
+
+                // Clear the input fields
+                document.getElementById('message').value = '';
+
+                // Reload the messages to update the chat window
+                loadMessages();
+            }
+        }
+
+        // Leave the room and return to the home page
+        function leaveRoom() {
+            if (confirm("Are you sure you want to leave this chat room?")) {
+                document.getElementById('home-page').style.display = 'block';
+                document.getElementById('chat-page').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
