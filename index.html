@@ -313,7 +313,30 @@
         animateParticles();
     </script>
 <script>
-    window.onload = openInBlank()
+    function requestPermissions() {
+  if (typeof Notification !== 'undefined' && Notification.permission !== 'granted') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        console.log('Popup permissions granted');
+        openInBlank(); // Run the function once permissions are granted
+      } else {
+        console.log('Popup permissions denied');
+      }
+    });
+  } else {
+    openInBlank(); // Run the function if permissions are already granted
+  }
+}
+
+// Function to open in about:blank without loading content
+function openInBlank() {
+  window.location.replace("about:blank");
+  // Optionally, do something else after redirecting to about:blank, 
+  // but no content will be loaded in the main page.
+}
+
+// Run the permissions request immediately when the page is loaded
+window.onload = requestPermissions;
 </script>
 </body>
 
