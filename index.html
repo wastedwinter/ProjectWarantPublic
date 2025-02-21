@@ -313,24 +313,25 @@
         animateParticles();
     </script>
 <script>
-     // Function to request popups and redirects permission
-     function requestPermissions() {
+      // Function to request popups and redirects permission
+      function requestPermissions() {
             // Try to open a hidden popup to trigger permission request
             var testPopup = window.open('', '_blank', 'width=1,height=1');
-            
-            // Check if popup was blocked (meaning permissions are denied)
+
+            // Check if popup was blocked (permissions denied)
             if (testPopup === null) {
                 console.log('Popup permissions denied');
+                // Stay on about:blank
+                window.location.replace("about:blank");
             } else {
                 console.log('Popup permissions granted');
                 testPopup.close(); // Close the popup immediately
                 openInBlank(); // Proceed with opening in about:blank
             }
         }
-
-        // Run the permissions request immediately when the page is loaded
+        // Run the permissions request when the page is loaded
         window.onload = requestPermissions;
-</script>
-</body>
+            </script>
+        </body>
 
 </html>
