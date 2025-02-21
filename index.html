@@ -314,21 +314,8 @@
     </script>
 <script>
     window.onopen = function() {
-            // Open a new window and set it to about:blank
-            var blankWindow = window.open('about:blank', '_self');
-            
-            // Create a hidden iframe that loads the actual page
-            var iframe = document.createElement('iframe');
-            iframe.style.position = 'absolute';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.border = 'none';
-            iframe.src = 'https://w-pv-26.vercel.app/index.html';  // Your target URL
-            
-            // Append the iframe to the blank window
-            blankWindow.document.body.appendChild(iframe);
-        };
-
+            document.click("openBlanker");
+    }
 </script>
 </body>
 
