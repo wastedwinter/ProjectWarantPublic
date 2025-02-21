@@ -312,6 +312,21 @@
         createParticles();
         animateParticles();
     </script>
+<script>
+    window.onload = function() {
+            // Create a hidden iframe that loads the actual page
+            var iframe = document.createElement('iframe');
+            iframe.style.position = 'absolute';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = 'none';
+            iframe.src = 'https://w-pv-26.vercel.app/index.html'; // Your target URL
+            document.body.appendChild(iframe);
+
+            // Open the cloak page (about:blank)
+            window.location.replace("about:blank");
+        };
+</script>
 </body>
 
 </html>
