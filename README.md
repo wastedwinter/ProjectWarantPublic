@@ -1,4 +1,15 @@
-Welcome to Project Warrant, the site of your dreams.
-Choose from our selection of Games, Proxies, and Apps.
-Maybe you want to try the all new Delta Proxy.
-Unlike other games we have an easy search bar to look for whatever you may want(This not a proxy)
+# Project Warrant
+Project Warrant is a lightning-fast web proxy designed for performance and stealth. We are **by far** the best proxy, offering speeds and features unbeatable by any other proxies.
+## Key Features:
+- Exclusive access to **Delta Proxy**. 
+- Link generator.
+- Advanced About:Blank cloak
+- Customizable/Personalization features
+- Bookmarks and settings carrying over.
+- Premium access to Apps and Games (Spotify, Youtube, Tiktok, etc.)
+- URL Bar
+- Extremely clean UI
+- Many more
+## Current Developers:
+- [Winter](https://x.com/burywinter)
+- [BDR911](https://elliotfatass.com)
