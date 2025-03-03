@@ -1,11 +1,11 @@
 # Project Warrant
-Project Warrant is a lightning-fast web proxy designed for performance and stealth. We are **by far** the best proxy, offering speeds and features unbeatable by any other proxies.
+Project Warrant is a rich suite of Games and Apps, preselected for the user. We offer **by far** the best proxy, **Delta Proxy**, with certain subscriptions to our services.
 ## Key Features:
 - Exclusive access to **Delta Proxy**. 
 - Link generator.
 - Advanced About:Blank cloak
 - Customizable/Personalization features
-- Bookmarks and settings carrying over.
+- Bookmarks and settings carrying
 - Premium access to Apps and Games (Spotify, Youtube, Tiktok, etc.)
 - URL Bar
 - Extremely clean UI
