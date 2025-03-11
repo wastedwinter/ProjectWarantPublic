@@ -1,4 +1,0 @@
-app.use((req, res) => {
-  res.statusCode = 404;
-  res.sendFile(path.join(process.cwd(), './static/404.html'))
-});
