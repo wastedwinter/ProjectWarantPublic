@@ -245,7 +245,7 @@
         <a href="/static/proxies.html">Proxies</a>
         <a href="/static/support.html">Support</a>
         <button id="openBlanker">Blanker</button>
-        <button id="openEruda">Dev tools</button>
+        <button type="button" onclick="">Dev tools</button>
         <script>
             document.getElementById("openBlanker").addEventListener("click", openInBlank);
         </script>
@@ -258,6 +258,7 @@
     </div>
 
     <script src="/js/style.js"></script>
-    </body>
+<script>(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();</script>    
+</body>
 
 </html>
