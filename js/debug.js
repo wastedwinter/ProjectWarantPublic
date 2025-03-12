@@ -6,20 +6,7 @@
       eruda.init();
   };
 
-  let keysPressed = new Set();
-
-  document.addEventListener('keydown', function (event) {
-      keysPressed.add(event.key);
-      if (keysPressed.has("\\") && keysPressed.has(";")) {  // Backslash + Semicolon
-          if (eruda._isInit) {
-              eruda.toggle();
-          } else {
-              eruda.init();
-          }
-      }
-  });
-
-  document.addEventListener('keyup', function (event) {
-      keysPressed.delete(event.key);
+  document.getElementById("openEruda").addEventListener("click", function () {
+      eruda.show();
   });
 })();
