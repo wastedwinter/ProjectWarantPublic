@@ -5,9 +5,8 @@ Project Warrant is a rich suite of Games and Apps, preselected for the user. We 
 - Link generator.
 - Advanced About:Blank cloak
 - Customizable/Personalization features
-- Bookmarks and settings carrying
+- Bookmarks and settings saving
 - Premium access to Apps and Games (Spotify, Youtube, Tiktok, etc.)
-- URL Bar
 - Extremely clean UI
 - Many more
 ## Current Developers:
