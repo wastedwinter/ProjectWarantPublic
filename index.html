@@ -78,68 +78,6 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* Search Bar Styles */
-        .search-container {
-            margin-top: 150px;
-            text-align: center;
-            position: relative;
-        }
-
-        #search-bar {
-            width: 50%;
-            padding: 12px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 25px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            transition: 0.3s;
-        }
-
-        #search-bar:focus {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        #search-results {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            background-color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-height: 200px;
-            overflow-y: auto;
-            width: 50%;
-            margin: 10px auto;
-            position: absolute;
-            top: 80px;
-            z-index: 1001;
-            border-radius: 10px;
-        }
-
-        #search-results li {
-            padding: 8px;
-            text-align: center;
-        }
-
-        #search-results li button {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 5px;
-        }
-
-        #search-results li button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
         /* Styling for "No results found" */
         #no-results {
             padding: 10px;
@@ -150,51 +88,6 @@
     </style>
     <script src="index.js"></script>
 </head>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const pages = [
-        { name: "Home Page", url: "/index.html" },
-        { name: "Games", url: "/static/games.html" },
-        { name: "Proxies", url: "/static/proxies.html" },
-        { name: "Support", url: "/static/support.html" },
-        { name: "Subway Surfers", url: "/hold/subway.html"},
-        { name: "Slope", url: "/hold/slope.html"},
-      ];
-  
-      const searchBar = document.getElementById('search-bar');
-      const searchResults = document.getElementById('search-results');
-  
-      searchBar.addEventListener('input', function () {
-        const query = searchBar.value.toLowerCase();
-        searchResults.innerHTML = '';
-  
-        if (query) {
-          const filteredPages = pages.filter(page => page.name.toLowerCase().includes(query));
-          if (filteredPages.length > 0) {
-            filteredPages.forEach(page => {
-              const li = document.createElement('li');
-              const button = document.createElement('button');
-              button.textContent = page.name;
-              button.onclick = () => window.location.href = page.url;
-              li.appendChild(button);
-              searchResults.appendChild(li);
-            });
-            searchResults.style.display = 'block';
-          } else {
-            const noResults = document.createElement('li');
-            noResults.id = 'no-results';
-            noResults.textContent = 'No results found';
-            searchResults.appendChild(noResults);
-            searchResults.style.display = 'block';
-          }
-        } else {
-          searchResults.style.display = 'none';
-        }
-      });
-    });
-  </script>
-  
-
 <body>
     <canvas id="galaxy"></canvas>
 
